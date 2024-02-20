@@ -7,6 +7,50 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="21*"/>
+        </Grid.ColumnDefinitions>
 
+        <!-- Navigation Panel -->
+        <StackPanel Grid.Column="0" Background="Black">
+            <Button Content="Home" Foreground="White" Background="{x:Null}" FontWeight="Bold" BorderBrush="{x:Null}" />
+            <Button Content="Search" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Bold" Click="Button_Click"/>
+            <TextBlock Text="Your Library" Foreground="White"></TextBlock>
+            <ListView x:Name="lvFavorite">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
+                            <TextBlock Text="{Binding Name}" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </StackPanel>
+
+        <!-- Main Content -->
+        <ScrollViewer Grid.Column="1" Grid.ColumnSpan="2">
+            <StackPanel>
+                <!-- Recently Played Section -->
+                <TextBlock Text="Recently Played" FontWeight="Bold" FontSize="16"/>
+                <ListView>
+                    <!-- Add your items here -->
+                </ListView>
+
+                <!-- Made For You Section -->
+                <TextBlock Text="Made For You" FontWeight="Bold" FontSize="16"/>
+                <ListView>
+                    <!-- Add your items here -->
+                </ListView>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Now Playing Bar -->
+        <DockPanel Background="Black" Height="50" Margin="0,191,0,190">
+            <!-- Add your controls here -->
+        </DockPanel>
     </Grid>
 </Window>
