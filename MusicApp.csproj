@@ -9,7 +9,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Bad_Liar.jpg" />
+    <None Remove="Imagine_Dragons_-_Mercury_Act_1.png" />
+    <None Remove="natural_img.jpg" />
+    <None Remove="Origins_cover.png" />
+    <None Remove="Trench_Twenty_One_Pilots.png" />
+    <None Remove="Twenty_One_Pilots_-_Scaled_and_Icy.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Bad_Liar.jpg" />
+    <Resource Include="Imagine_Dragons_-_Mercury_Act_1.png" />
+    <Resource Include="natural_img.jpg" />
+    <Resource Include="Origins_cover.png" />
+    <Resource Include="Trench_Twenty_One_Pilots.png" />
+    <Resource Include="Twenty_One_Pilots_-_Scaled_and_Icy.png" />
   </ItemGroup>
 
 </Project>

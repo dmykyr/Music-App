@@ -12,11 +12,23 @@ namespace MusicApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly float scaleCoef = 2.4F;
+        private string _addedToFavorite = "✓";
+        private string _notAddedToFavorite = "+";
+        private string _playMusic = "▶";
+        private string _stopMusic = "⏸";
+
+
+
         private HttpServiceClient _client;
+
+        private ImageSource _currentSongImage;
         public MainWindow()
         {
             InitializeComponent();
             _client = new HttpServiceClient();
+
+            _currentSongImage = new BitmapImage();
         }
 
         public static ImageSource ConvertBase64ToImage(string base64String)
@@ -39,12 +51,12 @@ namespace MusicApp
 
         public class MusicItem
         {
-            public ImageSource ImagePath { get; set; }
+            public ImageSource Image { get; set; }
             public string Name { get; set; }
 
             public MusicItem(string base64String, string name)
             {
-                ImagePath = ConvertBase64ToImage(base64String);
+                Image = ConvertBase64ToImage(base64String);
                 Name = name;
             }
         }
@@ -59,6 +71,20 @@ namespace MusicApp
             }
 
             lvFavorite.ItemsSource = musicItems;
+        }
+
+        private void tbHome_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            searchPage.Visibility = Visibility.Hidden;
+            allItemsPage.Visibility = Visibility.Visible;
+            albumPage.Visibility = Visibility.Hidden;
+        }
+
+        private void tbSearch_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            searchPage.Visibility = Visibility.Visible;
+            allItemsPage.Visibility = Visibility.Hidden;
+            albumPage.Visibility = Visibility.Hidden;
         }
     }
 }
