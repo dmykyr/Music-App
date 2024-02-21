@@ -5,52 +5,235 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MusicApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Krimu" Height="609" Width="1066">
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="21*"/>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="3.3*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7.4*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
 
-        <!-- Navigation Panel -->
-        <StackPanel Grid.Column="0" Background="Black">
-            <Button Content="Home" Foreground="White" Background="{x:Null}" FontWeight="Bold" BorderBrush="{x:Null}" />
-            <Button Content="Search" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Bold" Click="Button_Click"/>
+        <!--Bottom section-->
+        <Grid Grid.Row="1" Grid.ColumnSpan="2" Background="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <!--Current song info-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Song Image -->
+                <!--Source="{Binding _currentSongImage}"-->
+                <Image Source="/natural_img.jpg"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,15,10,10" Stretch="Fill"/>
+
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <!-- Song Title and Artist Name -->
+                    <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" Margin="0,0,10,0">
+                        <TextBlock Text="Chariot" FontSize="16" Foreground="White" Cursor="Hand"/>
+                        <TextBlock Text="SYML" FontSize="12" Foreground="#888888" Cursor="Hand"/>
+                    </StackPanel>
+
+                    <!-- Add to favorite Button -->
+                    <Button Grid.Column="1" Content="✓" BorderBrush="{x:Null}" Background="{x:Null}"
+                        Foreground="#FFFFFF" FontSize="19" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Grid>
+            </Grid>
+
+            <!--Song management-->
+            <DockPanel Grid.Column="1" VerticalAlignment="Center">
+                <DockPanel DockPanel.Dock="Bottom" Margin="0,0,0,10" >
+                    <TextBlock Foreground="#888888" DockPanel.Dock="Left">0:00</TextBlock>
+                    <TextBlock Foreground="#888888" DockPanel.Dock="Right">4:41</TextBlock>
+                    <Slider Margin="8,0,0,0"></Slider>
+                </DockPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Foreground="#FFB9B9B9" Margin="0,0,8,0" Text="⏴" FontSize="20" FontWeight="Bold"></TextBlock>
+                    <TextBlock Foreground="#FFB9B9B9" Text="⏸" FontSize="20" FontWeight="Bold"></TextBlock>
+                    <TextBlock Foreground="#FFB9B9B9" Margin="8,0,0,0" Text="⏵" FontSize="20" FontWeight="Bold"></TextBlock>
+                </StackPanel>
+            </DockPanel>
+
+            <!--Volume change-->
+            <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="30,0,12,0">
+                <TextBlock Foreground="#FFB9B9B9">Volume</TextBlock>
+                <Slider Maximum="100" Value="100"></Slider>
+            </StackPanel>
+        </Grid>
+
+        <!--Left panel-->
+        <StackPanel Grid.Row="0" Grid.Column="0" Background="Black">
+            <TextBlock x:Name="tbHome" Text="Home" Foreground="White" Background="{x:Null}" FontWeight="Bold" 
+                       Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,10" MouseDown="tbHome_MouseDown"></TextBlock>
+            <TextBlock x:Name="tbSearch" Text="Search" Foreground="White" Background="{x:Null}" FontWeight="Bold" 
+                       Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10" MouseDown="tbSearch_MouseDown"></TextBlock>
             <TextBlock Text="Your Library" Foreground="White"></TextBlock>
-            <ListView x:Name="lvFavorite">
+            <ListView x:Name="lvFavorite" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF8E8E8E">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
+                            <Image Source="{Binding Image}" Width="50" Height="50"/>
                             <TextBlock Text="{Binding Name}" Margin="10,0,0,0"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
         </StackPanel>
 
-        <!-- Main Content -->
-        <ScrollViewer Grid.Column="1" Grid.ColumnSpan="2">
-            <StackPanel>
-                <!-- Recently Played Section -->
-                <TextBlock Text="Recently Played" FontWeight="Bold" FontSize="16"/>
-                <ListView>
-                    <!-- Add your items here -->
-                </ListView>
+        <!--List of all items-->
+        <ScrollViewer x:Name="allItemsPage" Grid.Row="0" Grid.Column="1" Foreground="White" Visibility="Visible">
+            <StackPanel Background="Black">
+                <TextBlock Text="{Binding ItemsCategory}" FontSize="16" Margin="10,0,0,0" FontWeight="Bold"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
-                <!-- Made For You Section -->
-                <TextBlock Text="Made For You" FontWeight="Bold" FontSize="16"/>
-                <ListView>
-                    <!-- Add your items here -->
-                </ListView>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Background="#FF1D1D1D" Margin="20,10">
+                        <Image Source="/Twenty_One_Pilots_-_Scaled_and_Icy.png" HorizontalAlignment="Center" 
+                               VerticalAlignment="Center" Margin="10,10" Stretch="Fill"></Image>
+                        <TextBlock Text="Scaled and Icy" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
             </StackPanel>
         </ScrollViewer>
 
-        <!-- Now Playing Bar -->
-        <DockPanel Background="Black" Height="50" Margin="0,191,0,190">
-            <!-- Add your controls here -->
-        </DockPanel>
+        <!--Search page-->
+        <Grid x:Name="searchPage" Grid.Row="0" Grid.Column="1" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <!--Search panel-->
+            <StackPanel Orientation="Vertical" Background="Black">
+                <StackPanel Orientation="Horizontal">
+                    <Border MinWidth="270" MaxWidth="400" BorderBrush="#FFC2C2C2" Margin="50,20,10,17"
+                            BorderThickness="2" CornerRadius="10" Background="#FF5E5E5E">
+                        <TextBox BorderBrush="{x:Null}" Background="Transparent" SelectionBrush="{x:Null}" 
+                                 BorderThickness="0" Foreground="White" SelectionTextBrush="{x:Null}" 
+                                 VerticalContentAlignment="Center" CaretBrush="White"/>
+                    </Border>
+
+                    <Button x:Name="btnFind" Content="🔎" Foreground="White" Background="{x:Null}" 
+                            BorderBrush="{x:Null}" Margin="0,15,0,6" Cursor="Hand"></Button>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="50,0,0,20">
+                    <Button x:Name="btnSearchAll" Content="All" Margin="10,0,0,0" Padding="6,2"></Button>
+                    <Button x:Name="btnSearchArtist" Content="Artists" Margin="10,0,0,0" Padding="6,2"></Button>
+                    <Button x:Name="btnSearchAlbum" Content="Albums" Margin="10,0,0,0" Padding="6,2"></Button>
+                    <Button x:Name="btnSearchSong" Content="Songs" Margin="10,0,0,0" Padding="6,2"></Button>
+                </StackPanel>
+            </StackPanel>
+
+            <!--Found results panel-->
+            <ScrollViewer Grid.Row="1" Foreground="White" x:Name="lvSearchResults" Background="Black">
+                <StackPanel Background="Black">
+                    <!--Made For You Section-->
+                    <TextBlock Text="Found results" FontSize="16" Margin="10,0,0,0" FontWeight="Bold"/>
+                    <Grid x:Name="FoundResults">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Background="#FF1D1D1D" Margin="20,10">
+                            <Image Source="/Twenty_One_Pilots_-_Scaled_and_Icy.png" HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" Margin="10,10" Stretch="Fill"></Image>
+                            <TextBlock Text="Scaled and Icy" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+        
+        <!--Album page-->
+        <Grid x:Name="albumPage" Grid.Row="0" Grid.Column="1" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.4*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Background="Black">
+                <Image Margin="10" Source="{Binding AlbumImage}" Stretch="Fill"/>
+                <TextBlock Text="{Binding AlbumName}" Foreground="White" VerticalAlignment="Center" 
+                           HorizontalAlignment="Left" Margin="20,0" FontSize="35" FontWeight="Bold" FontStyle="Italic">
+                </TextBlock>
+            </StackPanel>
+
+            <!--Songs list-->
+            <ScrollViewer Grid.Row="1">
+                <ListView x:Name="albumSongsList" Background="Black" BorderBrush="{x:Null}" Foreground="White">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <!--Togle play btn-->
+                                <TextBlock Margin="15" Background="{x:Null}" Foreground="White" Text="▶" FontSize="18" 
+                                    HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand"></TextBlock>
+
+                                <!--Song image and text-->
+                                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                    <Image Source="{Binding Image}" Width="50" Height="50" Margin="10"/>
+                                    <TextBlock Text="{Binding SongTitle}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+
+                                <!--Song album name-->
+                                <TextBlock Grid.Column="2" Text="{Binding AlbumName}" VerticalAlignment="Center" 
+                                    HorizontalAlignment="Left" Margin="25,0,0,0"/>
+
+                                <!--Song publishing date-->
+                                <TextBlock Grid.Column="3" Text="{Binding PublishingDate}" HorizontalAlignment="Left" 
+                                    VerticalAlignment="Center" Margin="25,0,0,0"></TextBlock>
+
+                                <!--Add to favorite btn-->
+                                <TextBlock Grid.Column="4" Text="+" FontSize="24" HorizontalAlignment="Left" 
+                                    VerticalAlignment="Center" Margin="25,0,0,0" Cursor="Hand"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Window>
