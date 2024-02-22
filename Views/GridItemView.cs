@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using System.Windows.Input;
+using System.Windows.Media;
 
 namespace MusicApp.Views
 {
@@ -6,5 +7,7 @@ namespace MusicApp.Views
     {
         public string Title { get; set; }
         public ImageSource Source { get; set; }
+        public MouseButtonEventHandler? ClickEvent {  get; set; }
+        public object? ResponseClass { get; set; }
     }
 }

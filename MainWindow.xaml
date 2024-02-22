@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MusicApp"
         mc:Ignorable="d"
-        Title="Krimu" Height="609" Width="1066">
+        Title="Krimu" Height="609" Width="1066" Closing="Window_Closing">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -172,8 +172,8 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" Orientation="Horizontal" Background="Black">
-                <Image Margin="10" Source="{Binding AlbumImage}" Stretch="Fill"/>
-                <TextBlock Text="{Binding AlbumName}" Foreground="White" VerticalAlignment="Center" 
+                <Image Margin="10" Source="{Binding Source}" Stretch="Fill"/>
+                <TextBlock Text="{Binding Title}" Foreground="White" VerticalAlignment="Center" 
                            HorizontalAlignment="Left" Margin="20,0" FontSize="35" FontWeight="Bold" FontStyle="Italic">
                 </TextBlock>
             </StackPanel>
@@ -198,12 +198,12 @@
 
                                 <!--Song image and text-->
                                 <StackPanel Orientation="Horizontal" Grid.Column="1">
-                                    <Image Source="{Binding Image}" Width="50" Height="50" Margin="10"/>
-                                    <TextBlock Text="{Binding SongTitle}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                                    <Image Source="{Binding Source}" Width="50" Height="50" Margin="10"/>
+                                    <TextBlock Text="{Binding Title}" Margin="10,0,0,0" VerticalAlignment="Center"/>
                                 </StackPanel>
 
                                 <!--Song album name-->
-                                <TextBlock Grid.Column="2" Text="{Binding AlbumName}" VerticalAlignment="Center" 
+                                <TextBlock Grid.Column="2" Text="{Binding AlbumTitle}" VerticalAlignment="Center" 
                                     HorizontalAlignment="Left" Margin="25,0,0,0"/>
 
                                 <!--Song publishing date-->
